@@ -1,0 +1,26 @@
+{
+  "name": "api_investment",
+  "version": "1.0.0",
+  "description": "Nodejs: system to get data from a page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaopedro29/Api_investment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaopedro29/Api_investment/issues"
+  },
+  "homepage": "https://github.com/joaopedro29/Api_investment#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14",
+    "puppeteer": "^10.4.0"
+  }
+}
