@@ -35,3 +35,31 @@ exports.Search = async (req, res) =>{
 
 }
 
+exports.PagePayments = async (req, res) =>{
+
+    const name = req.params.name
+    const numeric = req.params.page
+
+    try {       
+
+        if(isNaN(parseInt(numeric))){
+
+            res.status(400).send({error:'add numeric page'})
+
+        }else{
+            
+            const intNumber = parseInt(numeric)
+
+            const result = await Api.ShowPagePayments(name, intNumber)
+
+            res.send(result)
+        }
+        
+        
+    } catch (error) {
+
+        console.log(error)
+        
+    }
+
+}
