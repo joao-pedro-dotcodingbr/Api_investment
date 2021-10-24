@@ -5,5 +5,7 @@ const Controllers = require('../controllers/controllersFunds')
 
 //http://localhost:3000/funds/listAll
 router.get('/listAll' , Controllers.GetListAll)
+//http://localhost:3000/funds/search
+router.get('/search/:name' , Controllers.Search)
 
 module.exports = app => app.use('/funds', router)
