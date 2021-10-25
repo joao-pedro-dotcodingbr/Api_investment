@@ -1,3 +1,3 @@
 module.exports = app =>{
-    require('../controllers/controllersActions')(app)
+    require('./routersActions')(app)
 }
