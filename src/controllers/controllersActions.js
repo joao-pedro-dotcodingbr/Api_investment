@@ -16,3 +16,20 @@ exports.GetListAll = async (req, res) =>{
     }
 
 }
+
+exports.Search = async (req, res) =>{
+
+    const name = req.params.name;
+
+    try {
+
+        const result = await Api.Search(name)
+
+        res.send(result)
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+}
