@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const pageHomeList = require('../configs/main')
 const Url = process.env.Url || 'http://localhost:3000'
+
 exports.GetAllList = async () =>{
 
     try {
@@ -404,6 +405,104 @@ exports.Search = async (name) =>{
 
         console.log(erro)
         
+    }
+
+}
+
+exports.ShowPagePayments = async (name , numericPage ) =>{
+
+    try {
+
+        const browser = await puppeteer.launch({headless:false});
+        const page = await browser.newPage();
+    
+        await page.goto(pageHomeList.IndexWeb + 'acoes/'+ name );
+
+        // add variable: https://stackoverflow.com/questions/46088351/how-can-i-pass-variable-into-an-evaluate-function
+        const result = await page.evaluate(async (selectPagination , link , nameAcoes ) =>{
+
+            //#region verification error path
+            const titleDocument = document.title
+            if(titleDocument == 'OPS. . .Não encontramos o que você está procurando - Status Invest'){
+                return {error:'error path'}
+            }
+            //#endregion
+ 
+            const array = {
+
+                numericPage:0 ,
+                next:'',
+                date:[]
+    
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            // Scroll navigation
+            for(let index = 0; index < 3000; index++){
+                await sleep(1)
+                await window.scrollTo(0,index)
+               
+            }
+           
+            //#region  get variables navigation Payments
+            const Divpagination = document.querySelectorAll('.pagination.mb-0')
+            
+            const pagination = Divpagination[0].querySelectorAll('li')
+         
+            const numericPagination = pagination.length -2
+
+            //#endregion
+
+            array.numericPage = numericPagination
+
+            //#region validations insert values pagination array 
+            if(selectPagination > numericPagination){
+                return {error:'sem histório'}
+            }else{
+
+                if(selectPagination == numericPagination){
+                    array.next = null
+
+                }else{
+                    array.next = link + '/actions/payments/' + nameAcoes + '/' +(selectPagination + 1) 
+                }
+
+            }
+            //#endregion
+
+            pagination[selectPagination].click()
+                        
+            const tablePayments = document.querySelector('tbody')
+
+                for (let index = 0; index < tablePayments.querySelectorAll('tr').length; index++) {
+                    let numeric = index + 1
+                
+                    array.date.push(
+
+                        {
+
+                        date: tablePayments.querySelector("tr:nth-child("+ numeric +") > td:nth-child(3)").innerText,
+                        value: tablePayments.querySelector("tr:nth-child("+numeric+") > td:nth-child(4)").innerText
+
+                        }
+                        
+                    )  
+
+                }
+
+                return array
+
+        }, numericPage , Url , name)
+
+        await page.close()
+        await browser.close()
+
+        return result
+               
+    } catch (error) {
+        console.log(error)
     }
 
 }
