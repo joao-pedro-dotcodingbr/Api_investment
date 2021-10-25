@@ -2,9 +2,10 @@
   "name": "api_investment",
   "version": "1.0.0",
   "description": "Nodejs: system to get data from a page",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon main"
   },
   "repository": {
     "type": "git",
