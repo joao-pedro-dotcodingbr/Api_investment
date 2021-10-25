@@ -4,9 +4,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(express.json())
-
-require('../src/routers/index')(app)
-
-app.listen(PORT =>{
+require('./routers/index')(app)
+app.listen(PORT, () =>{
     console.log('port conected')
 })
