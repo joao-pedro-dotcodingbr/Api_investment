@@ -4,6 +4,13 @@ this project aims to use the puppeteer library and return page data.
 
 site:https://statusinvest.com.br/
 
+###  Puppeteer
+
+What can I do?
+Most things that you can do manually in the browser can be done using Puppeteer
+
+![image]https://github.com/joaopedro29/Api_investment/assets/GetAllActions.gif)
+
 ## Routers
 
 ❗️❗️ use the main path as a start
@@ -22,7 +29,7 @@ site:https://statusinvest.com.br/
 |-------------|--------------|
 |/actions/listAll|get all table|
 |/actions/search|search one fund|
-|/actions/payments/:name/:page|select page payments on one fund|
+|/actions/payments/:name/:page|select page payments on one action|
 
 
 
