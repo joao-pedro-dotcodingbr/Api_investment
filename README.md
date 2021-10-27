@@ -9,7 +9,7 @@ site:https://statusinvest.com.br/
 What can I do?
 Most things that you can do manually in the browser can be done using Puppeteer
 
-![image]https://github.com/joaopedro29/Api_investment/assets/GetAllActions.gif)
+![image](https://github.com/joaopedro29/Api_investment/blob/main/assets/GetAllActions.gif)
 
 ## Routers
 
