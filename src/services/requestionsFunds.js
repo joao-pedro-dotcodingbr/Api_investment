@@ -2,6 +2,7 @@ const { text } = require('express');
 const puppeteer = require('puppeteer');
 const pageHomeList = require('../configs/main')
 const Url = process.env.Url || 'http://localhost:3000'
+
 exports.GetAllList = async () =>{
 
     try {
@@ -45,15 +46,9 @@ exports.GetAllList = async () =>{
 
             values:[],
 
-           // gest:[],
-
             dy:[],
 
             pVP:[],
-
-          //  liqui:[],
-
-           // patri:[]
             
         }
 
@@ -122,7 +117,7 @@ exports.Search = async (name) =>{
             const titles = indexContainer.querySelectorAll('.title.m-0')
             const values = indexContainer.querySelectorAll('.value')
             const subContainerTitles = indexContainer.querySelectorAll('.d-flex.justify-between')
-    
+    //.chart.card.white-text.bg-main-gd.w-100.w-md-45.ml-lg-5.mr-lg-5.mt-3.mb-3.mt-md-0.mb-md-0
             array.main.push({
     
                 currentValue:[
@@ -194,6 +189,54 @@ exports.Search = async (name) =>{
 
             //#endregion
 
+            //#region divs 
+
+           const divsIfor = document.querySelectorAll('.mb-5')
+
+           const divPayments = divsIfor[4].querySelector('#dy-info')
+
+           const divNextPayments = divsIfor[4].querySelector('.bg-secondary.white-text.card.w-100.w-md-45')
+
+           const divDate = divPayments.querySelectorAll('.d-flex.justify-between')
+
+           const SelectDate = (numeric, div) =>{
+
+               let values = div ? divDate[1].querySelectorAll('b') : divNextPayments.querySelectorAll('b')
+
+               return values[numeric].innerHTML
+           }
+
+            array.main.push({
+
+                last_payments:{
+
+                  value: divPayments.querySelector('.value.d-inline-block.fs-5.fw-900').innerText,
+                  yield: divPayments.querySelector('.sub-value.fs-4.lh-3').innerText + '%',
+                  base_quotation:divPayments.querySelector('.sub-value.fs-4.lh-3').innerText,
+                  data_base: SelectDate(0, 1),
+                  data: SelectDate(1, 1),
+
+
+                }
+
+            })
+
+            array.main.push({
+
+                next_income:{
+
+                  value: divNextPayments.querySelector('.value.d-inline-block.fs-5.fw-900').innerText,
+                  yield: divNextPayments.querySelector('.sub-value.fs-4.lh-3').innerText + '%',
+                  base_quotation:divNextPayments.querySelector('.sub-value.fs-4.lh-3').innerText,
+                  data_base: SelectDate(0, 0),
+                  data: SelectDate(1, 0),
+
+
+                }
+
+            })
+            //#endregion
+
             //#region  Scroll Navigation
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
@@ -236,6 +279,7 @@ exports.Search = async (name) =>{
                 })
 
             }
+
             const tablePayments = document.querySelector('tbody')
 
             for (let index = 0; index < tablePayments.querySelectorAll('tr').length; index++) {
@@ -257,7 +301,8 @@ exports.Search = async (name) =>{
 
 
             //#endregion
-    
+            
+
             return array
 
         }, Url , name)
