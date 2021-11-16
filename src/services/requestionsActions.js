@@ -270,11 +270,11 @@ exports.Search = async (name) =>{
             //#region datails informations 
 
                 const divValuation = document.querySelectorAll('.d-flex.flex-wrap.align-items-center.justify-start')
-                const valuesValuations = divValuation[0].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
-                const valuesDebt = divValuation[1].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
-                const valuesEfficiency = divValuation[2].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
-                const valuesProfitability = divValuation[3].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
-                const valuesGrowth = divValuation[4].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
+                const valuesValuations = divValuation[1].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
+                const valuesDebt = divValuation[2].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
+                const valuesEfficiency = divValuation[3].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
+                const valuesProfitability = divValuation[4].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
+                const valuesGrowth = divValuation[5].querySelectorAll('.value.d-block.lh-4.fs-4.fw-700')
             
             //#region GET indicators 
 
