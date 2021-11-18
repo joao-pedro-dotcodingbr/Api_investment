@@ -111,69 +111,79 @@ exports.Search = async (name) =>{
              
             const array = {
     
-                main:[],
-                Indicators:{
-
-                    valuation:{
-
-                        dy: '',
-                        pl: '',
-                        peg: '',
+                            main:{
+                                data:[],
+                                details:{
             
-                        p_pv: '',
-                        ev_ebitda: '',
-                        ev_ebit: '',
+                                    sector:[],
+                                    texts:[]
             
-                        p_ebitda: '',
-                        p_ebit: '',
-                        vpa: '',
+                                }
             
-                        p_active: '',
-                        lpa: '',
-                        p_sr:'',
+                                
+                            },
+                            Indicators:{
             
-                        p_cap:'',
-                        p_active_circ: ''
-
-                    },
-                    debt:{
-
-                        div_net_pl:'',
-                        net_debt_ebitda:'',
-                        net_debt_ebit:'',
-                        equity_assets:'',
-                        liabilities_assets:'',
-                        current_liquidity:'',
-
-                    },
-                    efficiency:{
-
-                        gross_margin:'',
-                        ebida_margin:'',
-                        ebit_margin:'',
-                        liquidity_margin:''
-
-                    },
-                    profitability:{
-
-                        roe: "",
-                        roa: "",
-                        roic: "",
-                        asser_turn: ""
-
-                   },
-                   growth:{
-
-                        cagr_revenues_5_years:'',
-                        cagr_profits_5_years:''
-
-                   }
-
-                },
-                payments:[]
-                
+                                valuation:{
+            
+                                    dy: '',
+                                    pl: '',
+                                    peg: '',
+                        
+                                    p_pv: '',
+                                    ev_ebitda: '',
+                                    ev_ebit: '',
+                        
+                                    p_ebitda: '',
+                                    p_ebit: '',
+                                    vpa: '',
+                        
+                                    p_active: '',
+                                    lpa: '',
+                                    p_sr:'',
+                        
+                                    p_cap:'',
+                                    p_active_circ: ''
+            
+                                },
+                                debt:{
+            
+                                    div_net_pl:'',
+                                    net_debt_ebitda:'',
+                                    net_debt_ebit:'',
+                                    equity_assets:'',
+                                    liabilities_assets:'',
+                                    current_liquidity:'',
+            
+                                },
+                                efficiency:{
+            
+                                    gross_margin:'',
+                                    ebida_margin:'',
+                                    ebit_margin:'',
+                                    liquidity_margin:''
+            
+                                },
+                                profitability:{
+            
+                                    roe: "",
+                                    roa: "",
+                                    roic: "",
+                                    asser_turn: ""
+            
+                               },
+                               growth:{
+            
+                                    cagr_revenues_5_years:'',
+                                    cagr_profits_5_years:''
+            
+                               }
+            
+                            },
+                            payments:[]
+                            
             }
-    
+
             //#region requestion values top page
     
             const indexContainer = document.querySelector('.top-info.has-special.d-flex.justify-between.flex-wrap')
@@ -182,7 +192,7 @@ exports.Search = async (name) =>{
             const values = indexContainer.querySelectorAll('.value')
             const subContainerTitles = indexContainer.querySelectorAll('.d-flex.justify-between')
 
-            array.main.push({
+            array.main.data.push({
     
                 currentValue:[
     
@@ -390,6 +400,83 @@ exports.Search = async (name) =>{
                 )
 
             }
+
+            for(let index = 400; index < 900; index++){
+                await sleep(1)
+                await window.scrollTo(0,index)
+            
+            }        
+
+             //#region Details
+
+             const divDetails =  document.querySelectorAll('.card.bg-main-gd-h.white-text.rounded.ov-hidden > div')
+
+             const sectorValues = divDetails[0].querySelectorAll('a > .value')
+ 
+             if(sectorValues.length > 0){
+ 
+                 const arrayTitles = []   
+                 const testeText = divDetails[1].querySelectorAll('h2 , p')
+                 const dataText = []
+ 
+                 array.main.details.sector.push({
+                 
+                     operating_sector: sectorValues[0].innerText,
+                     performance_subsector:sectorValues[1].innerText,
+                     action_segment:sectorValues[2].innerText,
+                     
+                 })
+ 
+                
+                 for (let index = 0; index < testeText.length; index++) {
+ 
+                     if(testeText[index].innerText == testeText[index].innerText.toUpperCase()){
+                         arrayTitles.push(index)
+                     }
+                   
+                     
+                 }    
+ 
+ 
+               arrayTitles.forEach((item , index) =>{
+ 
+                     const titleH2 = testeText[item].innerText
+                     const text = []
+ 
+                     for (let indexp = item  ; indexp <= arrayTitles[index + 1] ; indexp++) {
+ 
+                         if(testeText[indexp].nodeName == 'P' ){
+ 
+                             const p = testeText[indexp].innerText
+ 
+                             text.push({p})
+      
+                         }   
+                       
+                     }
+                        
+                         
+                     dataText.push({titleH2 , text })
+               })
+ 
+              
+               array.main.details.texts.push(...dataText)
+ 
+ 
+             }else{
+ 
+                 array.main.details.sector.push({
+                 
+                     operating_sector: sectorValues[0].innerText,
+                     performance_subsector:sectorValues[1].innerText,
+                     action_segment:sectorValues[2].innerText,
+     
+     
+                 })
+ 
+             }
+           
+             //#endregion
 
             //#endregion
             return array
