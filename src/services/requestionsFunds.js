@@ -104,7 +104,10 @@ exports.Search = async (name) =>{
 
             const array = {
     
-                main:[],
+                main:{
+                    data:[],
+                    details:[]
+                },
                 payments:[]
         
                 
@@ -118,7 +121,7 @@ exports.Search = async (name) =>{
             const values = indexContainer.querySelectorAll('.value')
             const subContainerTitles = indexContainer.querySelectorAll('.d-flex.justify-between')
     //.chart.card.white-text.bg-main-gd.w-100.w-md-45.ml-lg-5.mr-lg-5.mt-3.mb-3.mt-md-0.mb-md-0
-            array.main.push({
+            array.main.data.push({
     
                 currentValue:[
     
@@ -206,7 +209,7 @@ exports.Search = async (name) =>{
                return values[numeric].innerHTML
            }
 
-            array.main.push({
+            array.main.data.push({
 
                 last_payments:{
 
@@ -221,7 +224,7 @@ exports.Search = async (name) =>{
 
             })
 
-            array.main.push({
+            array.main.data.push({
 
                 next_income:{
 
@@ -302,6 +305,15 @@ exports.Search = async (name) =>{
 
             //#endregion
             
+            const divTable = document.querySelector('.top-info.top-info-1.top-info-md-2.sm.d-flex.justify-between')
+
+            const trTable03 = divTable.querySelector('.info:nth-child(3)')
+
+            array.main.details.push({start_date:trTable03.querySelector('.value').innerText})
+
+            const tdSegments = document.querySelector('.card.bg-main-gd-h.white-text.rounded:nth-child(4)')
+
+            array.main.details.push({segments: tdSegments.querySelector('.info:nth-child(1) .value').innerText})
 
             return array
 
